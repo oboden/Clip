@@ -47,7 +47,7 @@ figma.ui.onmessage = async (msg) => {
   if (msg.type === 'paste-item') {
     const item = items.find(i => i.id === msg.id);
     if (!item) {
-      figma.notify('Item not found');
+      figma.ui.postMessage({ type: 'error', message: 'Item not found' });
       return;
     }
 
