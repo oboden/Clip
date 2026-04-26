@@ -8,6 +8,25 @@ interface ClipItem {
 }
 
 let items: ClipItem[] = [];
+const STORAGE_FRAME_NAME = '__clip_storage__';
+
+function getOrCreateStorageFrame(): FrameNode {
+  let frame = figma.currentPage.children.find(
+    n => n.name === STORAGE_FRAME_NAME && n.type === 'FRAME'
+  ) as FrameNode | undefined;
+
+  if (!frame) {
+    frame = figma.createFrame();
+    frame.name = STORAGE_FRAME_NAME;
+    frame.visible = false;
+    frame.x = -99999;
+    frame.y = -99999;
+    frame.resize(100, 100);
+    figma.currentPage.appendChild(frame);
+  }
+
+  return frame;
+}
 
 function syncUI() {
   figma.ui.postMessage({
@@ -26,12 +45,12 @@ figma.ui.onmessage = async (msg) => {
       return;
     }
 
+    const storageFrame = getOrCreateStorageFrame();
+
     for (const node of selection) {
       const clone = (node as FrameNode).clone();
       clone.visible = false;
-      clone.x = -99999;
-      clone.y = -99999;
-      figma.currentPage.appendChild(clone);
+      storageFrame.appendChild(clone);
 
       items.push({
         id: String(Date.now()) + Math.random(),
@@ -67,7 +86,7 @@ figma.ui.onmessage = async (msg) => {
     const item = items.find(i => i.id === msg.id);
     if (item) {
       item.node.remove();
-      items = items.filter(i => i.id !== msg.id);
+      items = items.filter(i => i.id !== item.id);
       syncUI();
     }
   }
