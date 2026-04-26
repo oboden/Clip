@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 280, height: 400, title: 'Clipboard' });
+figma.showUI(__html__, { width: 280, height: 400, title: 'Clip' });
 
 interface ClipItem {
   id: string;

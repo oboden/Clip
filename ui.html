@@ -134,8 +134,8 @@
 
 <div id="container">
   <div class="header">
-    <h1>Clipboard</h1>
-    <button class="toggle-btn" id="toggle">−</button>
+    <h1>Clip</h1>
+    <button class="toggle-btn" id="toggle">&#9660;</button>
   </div>
   <div class="body">
     <button class="save-btn" id="save">Save Selection</button>
@@ -156,7 +156,7 @@
 toggle.onclick = () => {
     collapsed = !collapsed;
     container.classList.toggle('collapsed', collapsed);
-    toggle.textContent = collapsed ? '+' : '−';
+    toggle.innerHTML = collapsed ? '&#9650;' : '&#9660;';
     parent.postMessage({ 
       pluginMessage: { 
         type: 'resize', 
