@@ -9,49 +9,53 @@
     font-size: 12px;
     background: #FBFCFD;
     color: #111;
-    width: 340px;
-    overflow: hidden;
+    width: 500px;
+    overflow-x: hidden;
   }
 
-  /* ONBOARDING */
-  #onboarding { width: 340px; }
+  /* ── ONBOARDING screens 1 & 2 ── */
+  #onboarding { width: 500px; }
 
   .ob-illustration {
-    width: 100%;
-    height: 240px;
-    background: #FAF8F6;
+    width: 500px;
+    height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    transition: background 0.3s;
   }
   .ob-illustration img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
   }
-  .ob-illustration img.screen2 {
+  .ob-illustration.screen2 img {
+    object-fit: contain;
     object-position: top center;
-    padding-top: 8px;
   }
 
   .ob-card {
     background: #fff;
-    border-radius: 16px 16px 0 0;
-    padding: 24px 24px 24px;
-    margin-top: -16px;
+    border-radius: 20px 20px 0 0;
+    padding: 28px 32px 28px;
+    margin-top: -20px;
     position: relative;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .ob-dots {
     display: flex;
     gap: 6px;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
   .ob-dot {
-    width: 6px; height: 6px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: #ddd;
     transition: background 0.2s;
@@ -59,35 +63,39 @@
   .ob-dot.active { background: #111; }
 
   .ob-title {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 1.3;
+    width: 100%;
   }
   .ob-desc {
-    font-size: 13px;
+    font-size: 14px;
     color: #666;
     text-align: center;
     line-height: 1.6;
-    margin-bottom: 20px;
-    min-height: 16px;
+    margin-bottom: 28px;
+    min-height: 20px;
+    width: 100%;
   }
   .ob-actions {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
+    margin-top: auto;
   }
   .ob-btn-primary {
     flex: 1;
-    padding: 13px;
+    padding: 15px;
     background: #1a8cff;
     color: #fff;
     border: none;
     border-radius: 100px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     font-family: 'Inter', sans-serif;
     transition: background 0.15s;
   }
@@ -97,7 +105,7 @@
     border: none;
     cursor: pointer;
     color: #888;
-    font-size: 22px;
+    font-size: 24px;
     padding: 8px;
     line-height: 1;
     transition: color 0.15s;
@@ -105,55 +113,98 @@
   }
   .ob-btn-back:hover { color: #111; }
 
-  /* HOW TO USE SCREEN */
+  /* ── HOW TO USE ── */
   #howto {
     display: none;
-    width: 340px;
+    width: 500px;
     background: #FBFCFD;
-    padding: 24px 16px 20px;
+    padding: 32px 24px 24px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
   }
   .ht-title {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 300;
     text-align: center;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    color: #111;
   }
   .ht-subtitle {
-    font-size: 12px;
-    color: #999;
+    font-size: 13px;
+    font-weight: 300;
+    color: #9CA3AF;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
-  .ht-subtitle span { color: #f0a500; font-weight: 500; }
+  .ht-subtitle span { color: #F59E0B; font-weight: 300; }
   .ht-card {
     background: #fff;
-    border-radius: 12px;
-    padding: 8px 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-radius: 14px;
+    padding: 34px 24px;
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #F0F5F9;
   }
   .ht-step {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid #f5f5f5;
+    gap: 16px;
+    padding: 10px 0;
+    margin-bottom: 34px;
   }
-  .ht-step:last-child { border-bottom: none; }
+  .ht-step:last-child {
+    margin-bottom: 0;
+  }
   .ht-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
     flex-shrink: 0;
   }
   .ht-label {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     color: #111;
   }
   .ht-btn {
+    width: 180px;
+    padding: 12px 40px;
+    background: #369EFF;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.15s;
+  }
+  .ht-btn:hover { background: #1a8cff; }
+
+  /* ── MAIN UI ── */
+  #main { display: none; width: 500px; }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #1e1e1e;
+  }
+  .header h1 { font-size: 14px; font-weight: 600; color: #fff; }
+  .toggle-btn {
+    background: none; border: none;
+    color: #aaa; cursor: pointer;
+    font-size: 14px; padding: 0 4px;
+  }
+  .toggle-btn:hover { color: #fff; }
+
+  .body { padding: 16px; background: #FBFCFD; }
+
+  .save-btn {
     width: 100%;
-    padding: 13px;
+    padding: 11px;
     background: #1a8cff;
     color: #fff;
     border: none;
@@ -162,56 +213,21 @@
     font-size: 14px;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
-    transition: background 0.15s;
-  }
-  .ht-btn:hover { background: #0d7ae0; }
-
-  /* MAIN UI */
-  #main { display: none; width: 340px; }
-
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    background: #1e1e1e;
-  }
-  .header h1 { font-size: 13px; font-weight: 600; color: #fff; }
-  .toggle-btn {
-    background: none; border: none;
-    color: #aaa; cursor: pointer;
-    font-size: 14px; padding: 0 4px;
-  }
-  .toggle-btn:hover { color: #fff; }
-
-  .body { padding: 12px; background: #FBFCFD; }
-
-  .save-btn {
-    width: 100%;
-    padding: 10px;
-    background: #1a8cff;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     transition: background 0.15s;
   }
   .save-btn:hover { background: #0d7ae0; }
 
-  .empty { text-align: center; color: #999; padding: 24px 0; font-size: 12px; }
+  .empty { text-align: center; color: #999; padding: 32px 0; font-size: 13px; }
 
   .item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 9px 12px;
+    padding: 10px 14px;
     background: #fff;
-    border-radius: 8px;
-    margin-bottom: 6px;
+    border-radius: 10px;
+    margin-bottom: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
   .item-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
@@ -220,17 +236,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
-    font-size: 12px;
+    max-width: 260px;
+    font-size: 13px;
     color: #111;
   }
   .item-type { color: #aaa; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .item-actions { display: flex; gap: 6px; }
+  .item-actions { display: flex; gap: 8px; }
 
   .paste-btn, .delete-btn {
     border: none; border-radius: 6px;
-    padding: 5px 10px; cursor: pointer;
-    font-size: 11px; font-weight: 500;
+    padding: 6px 12px; cursor: pointer;
+    font-size: 12px; font-weight: 500;
     font-family: 'Inter', sans-serif;
     transition: background 0.15s;
   }
@@ -239,15 +255,14 @@
   .delete-btn { background: #f0f0f0; color: #888; }
   .delete-btn:hover { background: #fde8e8; color: #e03; }
 
-  .error { color: #e03333; font-size: 11px; margin-bottom: 8px; text-align: center; }
+  .error { color: #e03333; font-size: 12px; margin-bottom: 10px; text-align: center; }
   .collapsed .body { display: none; }
 </style>
 </head>
 <body>
 
-<!-- SCREEN 1 & 2: ONBOARDING -->
 <div id="onboarding">
-  <div class="ob-illustration">
+  <div class="ob-illustration" id="ob-illus">
     <img id="ob-img" src="" alt="" />
   </div>
   <div class="ob-card">
@@ -262,14 +277,13 @@
   </div>
 </div>
 
-<!-- SCREEN 3: HOW TO USE -->
-<div id="howto">
+<div id="howto" style="display:none">
   <p class="ht-title">How to use Clip</p>
   <p class="ht-subtitle">Follow these steps to easily use <span>Clip</span></p>
   <div class="ht-card">
     <div class="ht-step">
       <img class="ht-icon" src="data:image/png;base64,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" />
-      <span class="ht-label">Launch clip from your plugins</span>
+      <span class="ht-label">Launch Clip from your plugins</span>
     </div>
     <div class="ht-step">
       <img class="ht-icon" src="data:image/png;base64,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" />
@@ -291,7 +305,6 @@
   <button class="ht-btn" id="ht-start">Start using Clip</button>
 </div>
 
-<!-- MAIN UI -->
 <div id="main">
   <div id="container">
     <div class="header">
@@ -313,14 +326,16 @@
   var screens = [
     {
       img: IMG1,
-      imgClass: '',
+      bg: '#111111',
+      illustClass: '',
       title: 'Welcome to Clip.',
       desc: 'Clip is your personal clipboard in Figma. Save multiple elements and access them anytime.',
       actions: 'next'
     },
     {
       img: IMG2,
-      imgClass: 'screen2',
+      bg: '#FAF8F6',
+      illustClass: 'screen2',
       title: 'Manage all your copied elements in one place',
       desc: '',
       actions: 'back-next'
@@ -330,8 +345,11 @@
   function renderScreen(index) {
     var s = screens[index];
     var img = document.getElementById('ob-img');
+    var illus = document.getElementById('ob-illus');
     img.src = 'data:image/png;base64,' + s.img;
-    img.className = s.imgClass;
+    illus.style.background = s.bg;
+    illus.className = 'ob-illustration' + (s.illustClass ? ' ' + s.illustClass : '');
+
     document.getElementById('ob-title').textContent = s.title;
     document.getElementById('ob-desc').textContent = s.desc;
 
@@ -348,20 +366,24 @@
       document.getElementById('ob-back').onclick = function() { renderScreen(0); };
       document.getElementById('ob-cta').onclick = function() { showHowTo(); };
     }
+
+    parent.postMessage({ pluginMessage: { type: 'resize', height: 600 } }, '*');
   }
 
   function showHowTo() {
     document.getElementById('onboarding').style.display = 'none';
     document.getElementById('howto').style.display = 'block';
-    document.getElementById('dot-2').className = 'ob-dot active';
-    parent.postMessage({ pluginMessage: { type: 'resize', height: 520 } }, '*');
+    for (var i = 0; i < 3; i++) {
+      document.getElementById('dot-' + i).className = 'ob-dot' + (i === 2 ? ' active' : '');
+    }
+    parent.postMessage({ pluginMessage: { type: 'resize', height: 600 } }, '*');
   }
 
   function showMain() {
     document.getElementById('onboarding').style.display = 'none';
     document.getElementById('howto').style.display = 'none';
     document.getElementById('main').style.display = 'block';
-    parent.postMessage({ pluginMessage: { type: 'resize', height: 400 } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'resize', height: 600 } }, '*');
   }
 
   document.getElementById('ht-start').onclick = function() {
@@ -371,7 +393,6 @@
 
   renderScreen(0);
 
-  // Main UI
   var items = [];
   var collapsed = false;
 
@@ -379,7 +400,7 @@
     collapsed = !collapsed;
     document.getElementById('container').classList.toggle('collapsed', collapsed);
     document.getElementById('toggle').innerHTML = collapsed ? '&#9650;' : '&#9660;';
-    parent.postMessage({ pluginMessage: { type: 'resize', height: collapsed ? 40 : 400 } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'resize', height: collapsed ? 44 : 600 } }, '*');
   };
 
   document.getElementById('save').onclick = function() {

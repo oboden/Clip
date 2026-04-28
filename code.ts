@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 280, height: 400, title: 'Clip' });
+figma.showUI(__html__, { width: 500, height: 600, title: 'Clip' });
 
 interface ClipItem {
   id: string;
@@ -92,7 +92,6 @@ figma.ui.onmessage = async (msg) => {
   }
 
   if (msg.type === 'resize') {
-    figma.ui.resize(280, msg.height);
-  }
-
+    figma.ui.resize(500, msg.height);
+}
 };
