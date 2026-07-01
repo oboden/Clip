@@ -1,4 +1,7 @@
-figma.showUI(__html__, { width: 500, height: 600, title: 'Clip' });
+const UI_WIDTH = 420;
+const UI_HEIGHT = 520;
+
+figma.showUI(__html__, { width: UI_WIDTH, height: UI_HEIGHT, title: 'Clip' });
 
 interface ClipItem {
   id: string;
@@ -9,6 +12,32 @@ interface ClipItem {
 
 let items: ClipItem[] = [];
 const STORAGE_FRAME_NAME = '__clip_storage__';
+
+function rebuildItemsFromStorage() {
+  items = [];
+
+  const storageFrame = figma.currentPage.children.find(
+    node => node.type === 'FRAME' && node.name === STORAGE_FRAME_NAME
+  ) as FrameNode | undefined;
+
+  if (!storageFrame) {
+    syncUI();
+    return;
+  }
+
+  for (const child of storageFrame.children) {
+    items.push({
+      id: child.id,
+      name: child.name,
+      type: child.type,
+      node: child as SceneNode
+    });
+  }
+
+  syncUI();
+}
+
+const ONBOARDING_STORAGE_KEY = 'clip.hasCompletedOnboarding';
 
 function getOrCreateStorageFrame(): FrameNode {
   let frame = figma.currentPage.children.find(
@@ -35,7 +64,51 @@ function syncUI() {
   });
 }
 
+function syncSelectionState() {
+  figma.ui.postMessage({
+    type: 'selection-updated',
+    hasSelection: figma.currentPage.selection.length > 0
+  });
+}
+
+/*async function init() {
+  const hasCompletedOnboarding = await figma.clientStorage.getAsync(ONBOARDING_STORAGE_KEY);
+
+  if (hasCompletedOnboarding) {
+    figma.ui.postMessage({ type: 'show-main' });
+  }
+
+  syncSelectionState();
+  syncUI();
+}*/
+
+async function init() {
+
+  syncSelectionState();
+
+  rebuildItemsFromStorage();
+
+}
+
+
+async function init() {
+  // Development mode:
+  // Always show onboarding when the plugin opens.
+
+  syncSelectionState();
+  syncUI();
+}
+
+figma.on('selectionchange', syncSelectionState);
+
+init();
+
 figma.ui.onmessage = async (msg) => {
+
+  if (msg.type === 'complete-onboarding') {
+    await figma.clientStorage.setAsync(ONBOARDING_STORAGE_KEY, true);
+    return;
+  }
 
   if (msg.type === 'save-selection') {
     const selection = figma.currentPage.selection;
@@ -52,15 +125,7 @@ figma.ui.onmessage = async (msg) => {
       clone.visible = false;
       storageFrame.appendChild(clone);
 
-      items.push({
-        id: String(Date.now()) + Math.random(),
-        name: node.name,
-        type: node.type,
-        node: clone,
-      });
-    }
-
-    syncUI();
+    rebuildItemsFromStorage();
   }
 
   if (msg.type === 'paste-item') {
@@ -84,14 +149,13 @@ figma.ui.onmessage = async (msg) => {
 
   if (msg.type === 'delete-item') {
     const item = items.find(i => i.id === msg.id);
-    if (item) {
-      item.node.remove();
-      items = items.filter(i => i.id !== item.id);
-      syncUI();
-    }
+  if (item) {
+  item.node.remove();
+  rebuildItemsFromStorage();
+}
   }
 
   if (msg.type === 'resize') {
-    figma.ui.resize(500, msg.height);
-}
+    figma.ui.resize(UI_WIDTH, msg.height);
+  }
 };
