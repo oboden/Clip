@@ -1,33 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
+  <style>
+
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { height: 100%; }
   body {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    background: #FBFCFD;
-    color: #111;
-    width: 420px;
-    height: 100%;
-    overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  background: #FBFCFD;
+  color: #111;
+  width: 420px;
+  height: 100%;
+  overflow-x: hidden;
   }
 
-  /* ── ONBOARDING screens 1 & 2 ── */
+  /* ── ONBOARDING 1 SVG COMPOSITION ── */
   #onboarding { width: 420px; }
+
+  .ob-hero {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* This wrapper matches Figma's bounding box so your exact coordinates work */
+  .ob-graphic-wrapper {
+    position: relative;
+    width: 270px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* The new gradient ring */
+  .ob-bg-glow {
+    position: absolute;
+    z-index: 0;
+  }
+
+  .ob-bg-circle {
+    position: absolute;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.04);
+    border-radius: 50%;
+    z-index: 1;
+    filter: drop-shadow(-12px 8px 24px rgba(0, 0, 0, 0.08));
+  }
+
+  .ob-logo {
+    position: relative;
+    z-index: 2;
+  }
 
   .ob-illustration {
     width: 420px;
-    height: 220px;
+    height: 320px; /* Increased to give the illustration room */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: #FAF8F6;
+    background: #F7F7F7;
     transition: background 0.3s;
   }
+
   .ob-illustration img {
     width: auto;
     height: auto;
@@ -40,250 +79,367 @@
 
   .ob-card {
     background: #fff;
-    border-radius: 20px 20px 0 0;
+    border-radius: 24px 24px 0 0;
     padding: 24px 28px 24px;
-    margin-top: -20px;
+    margin-top: -24px;
     position: relative;
-    min-height: 320px;
+    min-height: 200px; /* Reduced to shrink the text section */
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0px -8px 24px rgba(0, 0, 0, 0.06); 
   }
 
-  .ob-dots {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    margin-bottom: 20px;
+  /* Hidden since dots aren't in the final design */
+  .ob-dots { display: none; } 
+
+  /* ── FLOATING ELEMENT GROUPS ── */
+  .ob-float { position: absolute; z-index: 3; }
+  .ob-shadow { position: absolute; }
+  .ob-main { position: absolute; }
+  .ob-text {
+    position: absolute;
+    font-family: 'DM Mono', monospace; /* Uses code font */
+    font-size: 9px;
+    color: #000;
+    z-index: 4;
+    letter-spacing: 0.5px;
   }
-  .ob-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #ddd;
-    transition: background 0.2s;
-  }
-  .ob-dot.active { background: #111; }
+
+  /* Purple Shape (From Frame 24) */
+  .ob-purple-group { top: 0px; left: 38px; width: 33px; height: 34px; }
+  .ob-purple-group .ob-shadow { top: 8px; left: 0px; }
+  .ob-purple-group .ob-main { top: 0px; left: 0px; }
+
+  /* Yellow Shape + Text (From Frame 34) */
+  .ob-yellow-group { top: 147px; left: 0px; width: 51px; height: 20px; }
+  .ob-yellow-group .ob-shadow { top: 0px; left: 3px; }
+  .ob-yellow-group .ob-main { top: 3px; left: 0px; }
+  .ob-yellow-group .ob-text { top: 6.5px; left: 7px; }
+
+  /* Blue Shape (From Frame 28) */
+  .ob-blue-group { top: 167px; left: 218px; width: 25px; height: 30px; }
+  .ob-blue-group .ob-shadow { top: 4px; left: 0px; }
+  .ob-blue-group .ob-main { top: 0px; left: 4px; }
+
+  /* Red Shape + Text */
+  .ob-red-group { top: 20px; left: 220px; width: 51px; height: 20px; }
+  .ob-red-group .ob-shadow { top: 3px; left: 0px; }
+  .ob-red-group .ob-main { top: 0px; left: 3px; }
+  .ob-red-group .ob-text { top: 3.5px; left: 10px; }
 
   .ob-title {
-    font-size: 22px;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 10px;
-    line-height: 1.3;
-    width: 100%;
+  font-size: 20px;
+  font-weight: 600; /* Bolder weight to match design */
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  color: #000;
+  width: 100%;
   }
+
   .ob-desc {
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-    line-height: 1.6;
-    margin-bottom: 24px;
-    min-height: 20px;
-    width: 100%;
+  font-size: 13px;
+  font-weight: 400;
+  color: #555;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  width: 90%; /* Keeps text constrained nicely */
   }
+
   .ob-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: auto;
   }
+
   .ob-btn-primary {
-    padding: 13px;
-    background: #1a8cff;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    transition: background 0.15s;
-    flex-shrink: 0;
+  padding: 12px;
+  background: #2A85FF; /* Matched the softer blue */
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
+  flex-shrink: 0;
   }
-  .ob-btn-primary:hover { background: #0d7ae0; }
-  .ob-btn-primary.btn-next-first { width: 280px; }
-  .ob-btn-primary.btn-get-started { width: 150px; }
+
+  .ob-btn-primary:hover { background: #1a71e0; }
+  .ob-btn-primary.btn-next-first { width: 220px; } /* Matches the Next button width */
+  .ob-btn-primary.btn-get-started { width: 180px; }
+
   .ob-btn-back {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #888;
-    font-size: 24px;
-    padding: 8px;
-    line-height: 1;
-    transition: color 0.15s;
-    flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 18px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+  flex-shrink: 0;
   }
-  .ob-btn-back:hover { color: #111; }
+
+  .ob-btn-back:hover { color: #000; }
+
+  /* Increased height slightly to fit the cascading stack */
+    .ob-stack-wrapper {
+      position: relative;
+      width: 240px;
+      height: 150px;
+    }
+
+    /* Style for the text labels hovering above frames */
+    .ob-frame-label {
+      position: absolute;
+      top: -14px;
+      left: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      color: #0F8BFF;
+    }
+
+    /* The flat, background frames (Frame 4 & 3) */
+    .ob-frame-bg {
+      position: absolute;
+      background: #FAF8F6;
+      /* Very faint border and shadow so they don't blend into the background */
+      border: 1px solid #E5E7EB; 
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.04);
+    }
+    
+  .ob-frame-4 {
+      top: -18px; left: 24px;
+      width: 196px; height: 90px; /* Made narrower so Frame 3 overlaps the edges */
+      opacity: 0.4; /* Gives it the faded, distant look */
+      border: 1px solid #0F8BFF;
+      z-index: 1;
+    }
+    
+    .ob-frame-3 {
+      top: 5px; left: 14px; /* Raised upwards slightly */
+      width: 216px; height: 100px;
+      border: 1px solid #0F8BFF;
+      z-index: 2;
+    }
+
+    /* ── FOREGROUND FRAME (Frame 2) ── */
+    .ob-selection-box {
+      position: absolute;
+      top: 30px; 
+      left: 0px;
+      width: 230px;  /* Reduced from 247px */
+      height: 118px; /* Reduced from 126px */
+      background: #FFFFFF;
+      border: 1px solid #0F8BFF;
+      transform: rotate(5.64deg);
+      opacity: 1;
+      z-index: 3;
+      box-shadow: 0px 48px 28px rgba(96, 96, 96, 0.05),
+                  0px 21px 21px rgba(96, 96, 96, 0.09),
+                  0px 5px 12px rgba(96, 96, 96, 0.1);
+    }
+
+    /* The Selection Anchor Nodes (Corners) */
+    .ob-node {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: #FFFFFF;
+      border: 1px solid #0F8BFF;
+    }
+    .ob-node-tl { top: -3px; left: -3px; }
+    .ob-node-tr { top: -3px; right: -3px; }
+    .ob-node-bl { bottom: -3px; left: -3px; }
+    .ob-node-br { bottom: -3px; right: -3px; }
+
+    /* The Pink Cursor */
+    .ob-cursor {
+      position: absolute;
+      z-index: 10;
+      /* Pulled slightly down and right so the blue node peeks out from behind it */
+      top: -1px;
+      left: -2px;
+      transform: rotate(0deg); 
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+    }
 
   /* ── HOW TO USE ── */
   #howto {
-    display: none;
-    width: 420px;
-    background: #FBFCFD;
-    padding: 24px 20px 20px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
+  display: none;
+  width: 420px;
+  background: #FBFCFD;
+  padding: 24px 20px 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
   }
   .ht-title {
-    font-size: 22px;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 6px;
-    color: #111;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 6px;
+  color: #111;
   }
   .ht-subtitle {
-    font-size: 12px;
-    font-weight: 300;
-    color: #9CA3AF;
-    text-align: center;
-    margin-bottom: 16px;
-    white-space: nowrap;
+  font-size: 12px;
+  font-weight: 300;
+  color: #9CA3AF;
+  text-align: center;
+  margin-bottom: 16px;
+  white-space: nowrap;
   }
   .ht-subtitle span { color: #F59E0B; font-weight: 300; }
   .ht-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 24px 20px 22px;
-    width: 100%;
-    border: 1px solid #F0F5F9;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px 20px 22px;
+  width: 100%;
+  border: 1px solid #F0F5F9;
   }
   .ht-card-footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
   }
   .ht-step {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 7px 0;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 0;
+  margin-bottom: 20px;
   }
   .ht-step:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
   }
   .ht-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  flex-shrink: 0;
   }
   .ht-label {
-    font-size: 13px;
-    font-weight: 400;
-    color: #111;
+  font-size: 13px;
+  font-weight: 400;
+  color: #111;
   }
   .ht-btn {
-    padding: 11px 22px;
-    white-space: nowrap;
-    background: #369EFF;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 400;
-    font-family: 'Inter', sans-serif;
-    transition: background 0.15s;
+  padding: 11px 22px;
+  white-space: nowrap;
+  background: #369EFF;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
   }
   .ht-btn:hover { background: #1a8cff; }
 
   /* ── MAIN UI ── */
   #main {
-    display: none;
-    width: 420px;
-    height: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
+  display: none;
+  width: 420px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
   }
 
   #container {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
   }
 
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #1e1e1e;
   }
   .header-logo {
-    width: 22px;
-    height: 17px;
-    display: block;
-    flex-shrink: 0;
+  width: 22px;
+  height: 17px;
+  display: block;
+  flex-shrink: 0;
   }
   .toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: none; border: none;
-    color: #aaa; cursor: pointer;
-    font-size: 13px; padding: 0 4px;
-    font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none; border: none;
+  color: #aaa; cursor: pointer;
+  font-size: 13px; padding: 0 4px;
+  font-family: 'Inter', sans-serif;
   }
   .toggle-btn:hover { color: #fff; }
 
   .save-btn {
-    width: 100%;
-    padding: 10px;
-    background: #1a8cff;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    margin-bottom: 12px;
-    transition: background 0.15s;
+  width: 100%;
+  padding: 10px;
+  background: #1a8cff;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 12px;
+  transition: background 0.15s;
   }
   .save-btn:hover { background: #0d7ae0; }
   .save-btn:disabled {
-    background: #D5DCE3;
-    color: #7B8794;
-    cursor: default;
+  background: #D5DCE3;
+  color: #7B8794;
+  cursor: default;
   }
   .save-btn:disabled:hover { background: #D5DCE3; }
 
   .empty { text-align: center; color: #999; padding: 28px 0; font-size: 12px; }
 
   .item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 9px 12px;
-    background: #fff;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
   .item-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
   .item-name {
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 260px;
-    font-size: 13px;
-    color: #111;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+  font-size: 13px;
+  color: #111;
   }
   .item-type { color: #aaa; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
   .item-actions { display: flex; gap: 8px; }
 
   .paste-btn, .delete-btn {
-    border: none; border-radius: 6px;
-    padding: 6px 12px; cursor: pointer;
-    font-size: 12px; font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    transition: background 0.15s;
+  border: none; border-radius: 6px;
+  padding: 6px 12px; cursor: pointer;
+  font-size: 12px; font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
   }
   .paste-btn { background: #1a8cff; color: #fff; }
   .paste-btn:hover { background: #0d7ae0; }
@@ -293,9 +449,271 @@
   .error { color: #e03333; font-size: 12px; margin-bottom: 10px; text-align: center; }
   .collapsed .body { display: none; }
   .body { padding: 14px; background: #FBFCFD; }
-</style>
+
+  .search-container {
+  position: relative;
+  margin-bottom: 16px;
+  }
+  .search-input {
+  width: 100%;
+  padding: 10px 10px 10px 36px;
+  border: 1px solid #F0F5F9;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #111;
+  background: #fff;
+  outline: none;
+  }
+  .search-input::placeholder { color: #9CA3AF; }
+  .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: #9CA3AF;
+  }
+
+  /* ── EMPTY STATE ── */
+  /* ── EMPTY STATE ── */
+  .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 380px; /* Adjusted height to center perfectly in the layout */
+  background: #fff;
+  border: 1px solid #F0F5F9;
+  border-radius: 10px;
+  text-align: center;
+  }
+
+  .empty-icon {
+  width: 57px;
+  height: 55px;
+  margin-bottom: 24px;
+  }
+
+  .empty-title {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #6B7280;
+  margin-bottom: 8px;
+  }
+
+  .empty-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #9CA3AF;
+  margin-bottom: 24px;
+  }
+
+  .empty-copy-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  width: 146px;
+  height: 41px;
+  background: #369EFF; /* Active Blue */
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  transition: background 0.2s;
+  }
+
+  /* Disabled state matches your gray button design */
+  .empty-copy-btn:disabled {
+  background: #E5E7EB;
+  color: #FFFFFF;
+  cursor: not-allowed;
+  }
+
+  .empty-copy-btn:not(:disabled):hover {
+  background: #1a8cff;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 20px;
+  background: #FBFCFD;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: flex-end;
+  }
+  .collapse-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #F0F5F9;
+  border-radius: 40px;
+  color: #9CA3AF;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  }
+  .collapse-btn:hover {
+  border-color: #d1d5db;
+  color: #6b7280;
+  }
+  .collapse-btn svg { width: 14px; height: 14px; }
+
+  .target-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111111; /* Default icon color */
+      transition: opacity 0.2s ease;
+    }
+    
+    .target-btn:hover {
+      opacity: 0.5; /* Fades slightly when the user hovers over it */
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #DB2777; /* The pink color */
+      transition: opacity 0.2s ease;
+    }
+    
+    .delete-btn:hover {
+      opacity: 0.7;
+    }
+
+    /* ── HEADER ACTIONS CONTAINER ── */
+  .header-actions {
+      display: flex;
+      gap: 10px; /* From your Figma layout */
+    }
+
+    /* Shared Button Style */
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      border-radius: 18.5px; /* Perfect pill shape from Figma */
+      height: 37px;
+      width: 76px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover { opacity: 0.8; }
+
+    /* Copy Button */
+    .copy-btn { 
+      background: #F9FAFB; 
+      color: #D1D5DB; /* Exact text color from your design */
+    }
+
+    /* NEW: Active Copy Button (When clicked outside) */
+    .copy-btn.ready {
+      background: #DBEAFE; /* Light blue shade */
+      color: #1E40AF; /* Dark blue text */
+    }
+
+    /* Glow slightly darker blue when hovered while active */
+    .copy-btn.ready:hover {
+      background: #BFDBFE; 
+      opacity: 1; 
+    }
+
+    /* Paste Button */
+    .paste-btn { 
+      background: #DBEAFE; 
+      color: #F9FAFB; /* Exact text color from your design */
+    }
+
+    /* ── MAIN LIST CONTAINER (Frame 37) ── */
+    .clip-list-container {
+        background: #FFFFFF;
+        border: 1px solid #F0F5F9;
+        border-radius: 10px;
+        padding: 16px;
+        margin: 16px;
+        height: calc(100vh - 140px); /* Adjusts dynamically to leave room for search and footer */
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+
+    /* ── CUSTOM CHECKBOXES (Frame 54) ── */
+    input[type="checkbox"].custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      width: 16px;
+      height: 16px;
+      background: #FFFFFF;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      margin: 0;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    /* When the checkbox is clicked */
+    input[type="checkbox"].custom-checkbox:checked {
+      background: #0F8BFF; /* Standard Figma Blue */
+      border-color: #0F8BFF;
+    }
+
+    /* Draws the white checkmark */
+    input[type="checkbox"].custom-checkbox:checked::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+  </style>
 </head>
-<body>
+<body style="margin: 0; font-family: 'Inter', sans-serif;">
 
 <div id="onboarding">
   <div class="ob-illustration" id="ob-illus">
@@ -346,48 +764,210 @@
 <div id="main">
   <div id="container">
     <div class="header">
-      <svg class="header-logo" viewBox="0 0 22 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Clip" role="img">
+      <svg class="header-logo" viewBox="0 0 22 17" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M1.8989 0C0.850167 0 0 0.850168 0 1.8989L0 14.7165C0 15.7652 0.850167 16.6154 1.8989 16.6154L11.8681 16.6154C12.5619 16.6154 13.1688 16.2433 13.5001 15.6878C13.5887 15.6908 13.6777 15.6923 13.767 15.6923C17.962 15.6923 21.3626 12.3861 21.3626 8.30768C21.3626 4.22927 17.962 0.923069 13.767 0.923069C13.6777 0.923069 13.5887 0.924569 13.5001 0.927544C13.1688 0.372064 12.5619 0 11.8681 0L1.8989 0ZM13.5001 0.927544C9.42879 1.06424 6.17142 4.31613 6.17142 8.30768C6.17142 12.2992 9.4288 15.5511 13.5001 15.6878C13.6696 15.4036 13.767 15.0714 13.767 14.7165L13.767 1.8989C13.767 1.54395 13.6696 1.21174 13.5001 0.927544Z" fill="#F5EDE1"/>
       </svg>
-      <button class="toggle-btn" id="toggle">
-        <span id="toggle-icon">&#9650;</span>
-        <span id="toggle-label">Collapse</span>
-      </button>
     </div>
+
     <div class="body">
-      <button class="save-btn" id="save" disabled>Save Selection</button>
-      <div id="error" class="error" style="display:none"></div>
-      <div id="list"><p class="empty">Nothing saved yet</p></div>
+      <div class="search-container">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search for element" />
+      </div>
+
+      <div class="clip-list-container">
+
+        <div class="header-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    
+          <label class="select-all-container" style="display: flex; align-items: center; gap: 8px; cursor: pointer; flex-shrink: 0; white-space: nowrap;">
+            <input type="checkbox" id="select-all" class="custom-checkbox">
+            <span style="font-family: 'Inter'; font-size: 14px; color: #374151;">Select all</span>
+          </label>
+
+          <div class="header-actions" style="display: flex; gap: 10px;">
+            <button id="copy-btn" class="action-btn copy-btn" title="Copy">Copy</button>
+            <button id="paste-btn" class="action-btn paste-btn" title="Paste">Paste</button>
+            
+            <button id="bulk-delete-btn" class="action-btn" title="Delete" style="display: none; background: #FCE8E8; color: #DB2777;">Delete</button>
+          </div>
+          
+        </div>
+
+        <div id="error" class="error" style="display:none"></div>
+        
+        <div id="empty-state" class="empty-state">
+          <svg class="empty-icon" width="57" height="55" viewBox="0 0 57 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 0C4.47715 0 0 4.47715 0 10V36C0 41.3394 4.18464 45.7014 9.4532 45.9853C9.1587 45.0425 9 44.0398 9 43V17C9 11.4772 13.4772 7 19 7H45C45.1835 7 45.3658 7.00494 45.5468 7.0147C44.2771 2.95 40.483 0 36 0H10Z" fill="#F3F4F6"/>
+            <rect x="11" y="9" width="46" height="46" rx="10" fill="#E5E7EB"/>
+          </svg>
+          <div class="empty-title">You haven’t copied anything</div>
+          <div class="empty-subtitle">Click on an element to copy</div>
+          <button class="empty-copy-btn" id="save-empty" disabled>Copy</button>
+        </div>
+
+        <div id="list" style="display:none; flex-direction: column; gap: 8px;"></div>
+        
+      </div> </div>
+    
+    <div class="footer">
+      <button class="collapse-btn" id="toggle">
+        Collapse 
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M10 6L14 2M14 2H10M14 2V6M6 10L2 14M2 14H6M2 14V10" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
   </div>
 </div>
 
 <script>
+  // --- STATE VARIABLES ---
+  var items = [];
+  var collapsed = false;
+  var hasSelection = false;
 
+  // --- GET HEADER BUTTONS ---
+  const copyBtn = document.getElementById('copy-btn');
+  if (copyBtn) {
+    copyBtn.style.opacity = '0.5';
+    copyBtn.style.cursor = 'not-allowed';
+  }
+
+  // --- UNIFIED MESSAGE LISTENER ---
+  window.onmessage = function(event) {
+    var msg = event.data.pluginMessage;
+    if (!msg) return;
+
+    if (msg.type === 'show-main') { 
+      showMain(); 
+    }
+    
+    if (msg.type === 'items-updated') { 
+      items = msg.items; 
+      renderList(); 
+    }
+    
+    if (msg.type === 'error') { 
+      showError(msg.message); 
+    }
+
+    var activeCheckboxes = document.querySelectorAll('.item-checkbox:checked');
+    
+    if (msg.type === 'canvas-selection-active' || msg.type === 'selection-updated' && msg.hasSelection) {
+      hasSelection = true;
+      // Only light up if NO checkboxes are currently selected
+      if (copyBtn && activeCheckboxes.length === 0) {
+        copyBtn.classList.add('ready');
+        copyBtn.style.opacity = '1';
+        copyBtn.style.cursor = 'pointer';
+        copyBtn.style.pointerEvents = 'auto';
+      }
+      var saveEmptyBtn = document.getElementById('save-empty');
+      if(saveEmptyBtn) saveEmptyBtn.disabled = false;
+    } 
+    else if (msg.type === 'canvas-selection-cleared' || msg.type === 'selection-updated' && !msg.hasSelection) {
+      hasSelection = false;
+      if (copyBtn && activeCheckboxes.length === 0) {
+        copyBtn.classList.remove('ready');
+        copyBtn.style.opacity = '0.5';
+        copyBtn.style.cursor = 'not-allowed';
+      }
+      var saveEmptyBtn = document.getElementById('save-empty');
+      if(saveEmptyBtn) saveEmptyBtn.disabled = true;
+    }
+  };
+
+  // --- ONBOARDING DATA & FUNCTIONS (RESTORED) ---
   var screens = [
     {
-      img: 'assets/onboarding-1.png',
-      bg: '#FAF8F6',
+      graphic: `
+        <div class="ob-hero">
+          <div class="ob-graphic-wrapper">
+            <svg class="ob-bg-glow" width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="77.5" cy="77.5" r="77.5" fill="url(#paint0_linear_11_203)" fill-opacity="0.2"/>
+              <circle cx="77.5" cy="77.5" r="77.5" fill="url(#paint1_linear_11_203)"/>
+              <defs>
+                <linearGradient id="paint0_linear_11_203" x1="185.824" y1="-6.60512" x2="-21.5767" y2="181.861" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FF9297" stop-opacity="0.2"/><stop offset="1" stop-color="#FEE292" stop-opacity="0.7"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_11_203" x1="39.6307" y1="-14.5312" x2="147.074" y2="93.3523" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFE292" stop-opacity="0.2"/><stop offset="1" stop-color="#D5E5F9" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <svg class="ob-bg-circle" width="135" height="135" viewBox="0 0 135 135" fill="none"><circle cx="67.4112" cy="67.4112" r="67.4112" fill="#FDFDFD"/></svg>
+            <svg class="ob-logo" width="38" height="30" viewBox="0 0 38 30" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.31745 0C1.48527 0 0 1.48528 0 3.31745L0 25.7103C0 27.5424 1.48528 29.0277 3.31746 29.0277L20.7341 29.0277C21.9462 29.0277 23.0064 28.3777 23.5853 27.4072C23.74 27.4124 23.8955 27.415 24.0515 27.415C31.3802 27.415 37.3213 21.639 37.3213 14.5138C37.3213 7.38869 31.3802 1.61262 24.0515 1.61262C23.8954 1.61262 23.74 1.61524 23.5852 1.62044C23.0064 0.650004 21.9461 0 20.7341 0L3.31745 0ZM23.5852 1.62044C16.4725 1.85926 10.7817 7.54043 10.7817 14.5138C10.7817 21.4872 16.4725 27.1684 23.5853 27.4072C23.8814 26.9107 24.0515 26.3304 24.0515 25.7103L24.0515 3.31745C24.0515 2.69733 23.8814 2.11695 23.5852 1.62044Z" fill="#292521"/></svg>
+
+            <div class="ob-float ob-purple-group">
+              <svg class="ob-shadow" width="31" height="25" viewBox="0 0 31 25" fill="none"><path d="M14.2565 0.387106C14.9202 -0.129076 15.8495 -0.129076 16.5132 0.387106L30.0602 10.9237C31.0062 11.6595 31.0062 13.0893 30.0602 13.8251L16.5132 24.3617C15.8495 24.8778 14.9202 24.8778 14.2565 24.3617L0.709486 13.8251C-0.236534 13.0893 -0.236533 11.6595 0.709487 10.9237L14.2565 0.387106Z" fill="#A692FF" fill-opacity="0.35"/></svg>
+              <svg class="ob-main" width="31" height="25" viewBox="0 0 31 25" fill="none"><path d="M14.2565 0.387106C14.9202 -0.129076 15.8495 -0.129076 16.5132 0.387106L30.0602 10.9237C31.0062 11.6595 31.0062 13.0893 30.0602 13.8251L16.5132 24.3617C15.8495 24.8778 14.9202 24.8778 14.2565 24.3617L0.709486 13.8251C-0.236534 13.0893 -0.236533 11.6595 0.709487 10.9237L14.2565 0.387106Z" fill="#A692FF"/></svg>
+            </div>
+
+            <div class="ob-float ob-yellow-group">
+              <svg class="ob-shadow" width="48" height="17" viewBox="0 0 48 17" fill="none"><rect width="48" height="17" fill="#564C31"/></svg>
+              <svg class="ob-main" width="48" height="17" viewBox="0 0 48 17" fill="none"><rect width="48" height="17" fill="#FFE292"/></svg>
+              <span class="ob-text">CTRL+C</span>
+            </div>
+
+            <div class="ob-float ob-blue-group">
+              <svg class="ob-shadow" width="21" height="26" viewBox="0 0 21 26" fill="none"><rect width="20.5882" height="25.7353" rx="1.47059" fill="#92C1FF" fill-opacity="0.35"/></svg>
+              <svg class="ob-main" width="21" height="26" viewBox="0 0 21 26" fill="none"><rect width="20.5882" height="25.7353" rx="1.47059" fill="#92C1FF"/></svg>
+            </div>
+
+            <div class="ob-float ob-red-group">
+              <svg class="ob-shadow" width="48" height="17" viewBox="0 0 48 17" fill="none"><rect width="48" height="17" fill="#774447"/></svg>
+              <svg class="ob-main" width="48" height="17" viewBox="0 0 48 17" fill="none"><rect width="48" height="17" fill="#FF9297"/></svg>
+              <span class="ob-text">CTRL+V</span>
+            </div>
+          </div>
+        </div>
+      `,
+      bg: '#F7F7F7',
       illustClass: '',
       title: 'Welcome to Clip.',
-      desc: 'Clip is your personal clipboard in Figma. Save multiple elements and access them anytime.',
+      desc: 'Clip is your personal clipboard in Figma, copy multiple elements, and keep them on the Clip',
       actions: 'next'
     },
     {
-      img: 'assets/onboarding-2.png',
-      bg: '#FAF8F6',
+      graphic: `
+        <div class="ob-hero-2">
+          <div class="ob-stack-wrapper">
+            <div class="ob-frame-bg ob-frame-4">
+              <div class="ob-frame-label">Frame 4</div>
+            </div>
+            <div class="ob-frame-bg ob-frame-3">
+              <div class="ob-frame-label">Frame 3</div>
+            </div>
+            <div class="ob-selection-box">
+              <div class="ob-frame-label">Frame 2</div>
+              <div class="ob-node ob-node-tl"></div>
+              <div class="ob-node ob-node-tr"></div>
+              <div class="ob-node ob-node-bl"></div>
+              <div class="ob-node ob-node-br"></div>
+              <svg class="ob-cursor" width="18" height="17" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.704707 2.54712L4.83636 12.3835C5.42361 13.7816 7.50235 13.3914 7.54258 11.8755L7.6258 8.73966C7.64108 8.164 8.0053 7.65564 8.54546 7.45603L12.4579 6.01022C13.745 5.5346 13.6613 3.68672 12.3364 3.32949L2.36977 0.642006C1.23827 0.336899 0.250868 1.46665 0.704707 2.54712Z" fill="#FF9297" stroke="black" stroke-width="1.18"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      `,
+      bg: '#F7F7F7',
       illustClass: 'screen2',
       title: 'Manage all your copied elements in one place',
-      desc: '',
+      desc: '', 
       actions: 'back-next'
     }
   ];
 
   function renderScreen(index) {
     var s = screens[index];
-    var img = document.getElementById('ob-img');
     var illus = document.getElementById('ob-illus');
-    img.src = s.img;
+    if(!illus) return;
+    
+    illus.innerHTML = s.graphic;
     illus.style.background = s.bg;
     illus.className = 'ob-illustration' + (s.illustClass ? ' ' + s.illustClass : '');
 
@@ -395,7 +975,8 @@
     document.getElementById('ob-desc').textContent = s.desc;
 
     for (var i = 0; i < 3; i++) {
-      document.getElementById('dot-' + i).className = 'ob-dot' + (i === index ? ' active' : '');
+      var dot = document.getElementById('dot-' + i);
+      if(dot) dot.className = 'ob-dot' + (i === index ? ' active' : '');
     }
 
     var actions = document.getElementById('ob-actions');
@@ -408,91 +989,304 @@
       document.getElementById('ob-back').onclick = function() { renderScreen(0); };
       document.getElementById('ob-cta').onclick = function() { showHowTo(); };
     }
-
     parent.postMessage({ pluginMessage: { type: 'resize', height: 520 } }, '*');
   }
 
+  // Initial call to start the UI
+  renderScreen(0);
+
+  // --- UI NAVIGATION LOGIC ---
   function showHowTo() {
-    document.getElementById('onboarding').style.display = 'none';
-    document.getElementById('howto').style.display = 'block';
+    var ob = document.getElementById('onboarding');
+    var ht = document.getElementById('howto');
+    if(ob) ob.style.display = 'none';
+    if(ht) ht.style.display = 'block';
+    
     for (var i = 0; i < 3; i++) {
-      document.getElementById('dot-' + i).className = 'ob-dot' + (i === 2 ? ' active' : '');
+      var dot = document.getElementById('dot-' + i);
+      if(dot) dot.className = 'ob-dot' + (i === 2 ? ' active' : '');
     }
     parent.postMessage({ pluginMessage: { type: 'resize', height: 520 } }, '*');
   }
 
   function showMain() {
-    document.getElementById('onboarding').style.display = 'none';
-    document.getElementById('howto').style.display = 'none';
-    document.getElementById('main').style.display = 'flex';
+    var ob = document.getElementById('onboarding');
+    var ht = document.getElementById('howto');
+    var main = document.getElementById('main');
+    
+    if(ob) ob.style.display = 'none';
+    if(ht) ht.style.display = 'none';
+    if(main) main.style.display = 'flex';
     parent.postMessage({ pluginMessage: { type: 'resize', height: 520 } }, '*');
   }
 
-  document.getElementById('ht-start').onclick = function() {
-    parent.postMessage({ pluginMessage: { type: 'complete-onboarding' } }, '*');
-    showMain();
-  };
-
-  renderScreen(0);
-
-  var items = [];
-  var collapsed = false;
-  var hasSelection = false;
-
-  function setHasSelection(nextHasSelection) {
-    hasSelection = nextHasSelection;
-    document.getElementById('save').disabled = !hasSelection;
+  var htStartBtn = document.getElementById('ht-start');
+  if (htStartBtn) {
+    htStartBtn.onclick = function() {
+      parent.postMessage({ pluginMessage: { type: 'complete-onboarding' } }, '*');
+      showMain();
+    };
   }
 
-  document.getElementById('toggle').onclick = function() {
-    collapsed = !collapsed;
-    document.getElementById('container').classList.toggle('collapsed', collapsed);
-    document.getElementById('toggle-icon').innerHTML = collapsed ? '&#9660;' : '&#9650;';
-    document.getElementById('toggle-label').textContent = collapsed ? 'Expand' : 'Collapse';
-    parent.postMessage({ pluginMessage: { type: 'resize', height: collapsed ? 38 : 520 } }, '*');
-  };
-
-  document.getElementById('save').onclick = function() {
-    if (!hasSelection) {
-      showError('Select something first');
-      return;
+  // --- COLLAPSE LOGIC ---
+  function updateToggleState() {
+    var btn = document.getElementById('toggle');
+    if (!btn) return;
+    
+    if (collapsed) {
+      // Added the item count badge (the span tag) right before the SVG
+      btn.innerHTML = 'Expand <span style="background: #F3F4F6; color: #374151; padding: 2px 6px; border-radius: 10px; font-size: 12px; margin-left: 6px; margin-right: 4px; font-weight: 500;">' + items.length + '</span> <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 16px; height: 16px;"><path d="M10 10L14 14M14 14H10M14 14V10M6 6L2 2M2 2H6M2 2V6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    } else {
+      // Standard layout for the uncollapsed state
+      btn.innerHTML = 'Collapse <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 16px; height: 16px; margin-left: 6px;"><path d="M10 6L14 2M14 2H10M14 2V6M6 10L2 14M2 14H6M2 14V10" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     }
+  }
 
-    parent.postMessage({ pluginMessage: { type: 'save-selection' } }, '*');
-  };
+  var toggleBtn = document.getElementById('toggle');
+  if (toggleBtn) {
+    toggleBtn.onclick = function() {
+      collapsed = !collapsed;
+      document.getElementById('container').classList.toggle('collapsed', collapsed);
+      
+      // Call the helper function to update the text and badge
+      updateToggleState();
+      
+      parent.postMessage({ pluginMessage: { type: 'resize', height: collapsed ? 95 : 520 } }, '*');
+    };
+  }
 
+  // --- SAVE EMPTY STATE LOGIC ---
+  var saveEmptyBtn = document.getElementById('save-empty');
+  if (saveEmptyBtn) {
+    saveEmptyBtn.onclick = function() {
+      if (!hasSelection) {
+        showError('Select something first');
+        return;
+      }
+      parent.postMessage({ pluginMessage: { type: 'save-selection' } }, '*');
+    };
+  }
+
+  // --- UTILS ---
   function showError(msg) {
     var el = document.getElementById('error');
+    if(!el) return;
     el.textContent = msg;
     el.style.display = 'block';
     setTimeout(function() { el.style.display = 'none'; }, 2000);
   }
 
-  function renderList() {
-    var list = document.getElementById('list');
-    if (items.length === 0) {
-      list.innerHTML = '<p class="empty">Nothing saved yet</p>';
-      return;
-    }
-    list.innerHTML = items.map(function(item) {
-      return '<div class="item"><div class="item-info"><span class="item-name" title="' + item.name + '">' + item.name + '</span><span class="item-type">' + item.type + '</span></div><div class="item-actions"><button class="paste-btn" data-id="' + item.id + '">Paste</button><button class="delete-btn" data-id="' + item.id + '">&#10005;</button></div></div>';
-    }).join('');
-    list.querySelectorAll('.paste-btn').forEach(function(btn) {
-      btn.onclick = function() { parent.postMessage({ pluginMessage: { type: 'paste-item', id: btn.dataset.id } }, '*'); };
-    });
-    list.querySelectorAll('.delete-btn').forEach(function(btn) {
-      btn.onclick = function() { parent.postMessage({ pluginMessage: { type: 'delete-item', id: btn.dataset.id } }, '*'); };
-    });
+  function getSelectedIds() {
+    var checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
+    return Array.from(checkedBoxes).map(function(box) { return box.dataset.id; });
   }
 
-  window.onmessage = function(event) {
-    var msg = event.data.pluginMessage;
-    if (!msg) return;
-    if (msg.type === 'show-main') { showMain(); }
-    if (msg.type === 'items-updated') { items = msg.items; renderList(); }
-    if (msg.type === 'selection-updated') { setHasSelection(msg.hasSelection); }
-    if (msg.type === 'error') { showError(msg.message); }
-  };
+  // --- BULK ACTION LOGIC ---
+  var pasteBtn = document.getElementById('paste-btn');
+  if (pasteBtn) {
+    pasteBtn.onclick = function() {
+      var selectedIds = getSelectedIds();
+      if (selectedIds.length === 0) return; 
+      parent.postMessage({ pluginMessage: { type: 'paste-items', ids: selectedIds } }, '*');
+    };
+  }
+
+  var selectAllCheckbox = document.getElementById('select-all');
+  if (selectAllCheckbox) {
+    selectAllCheckbox.onchange = function(e) {
+      var isChecked = e.target.checked;
+      var allCheckboxes = document.querySelectorAll('.item-checkbox');
+      allCheckboxes.forEach(function(box) {
+        box.checked = isChecked;
+        // Trigger the row highlight logic
+        box.dispatchEvent(new Event('change')); 
+      });
+      
+      // ADD THIS: Update header buttons
+      updateBulkActions();
+    };
+  }
+
+  // --- LIST RENDERING ---
+  function renderList() {
+    var list = document.getElementById('list');
+    var emptyState = document.getElementById('empty-state');
+    var selectAllCb = document.getElementById('select-all');
+    var bulkDeleteBtn = document.getElementById('bulk-delete-btn');
+    var searchBox = document.getElementById('search-input');
+    
+    if(!list || !emptyState) return;
+
+    // Filter items based on search query
+    var query = searchBox ? searchBox.value.toLowerCase() : '';
+    var itemsToRender = items.filter(function(item) {
+      return item.name.toLowerCase().includes(query);
+    });
+    
+    // RESET HEADER STATES
+    if (selectAllCb) {
+      selectAllCb.checked = false; 
+      selectAllCb.disabled = itemsToRender.length === 0; 
+      selectAllCb.style.cursor = itemsToRender.length === 0 ? 'not-allowed' : 'pointer';
+    }
+    if (bulkDeleteBtn) {
+      bulkDeleteBtn.style.display = 'none'; 
+    }
+    
+    // IF NO ITEMS MATCH SEARCH (OR LIST IS EMPTY)
+    if (itemsToRender.length === 0) {
+      emptyState.style.display = 'flex';
+      list.style.display = 'none';
+      updateToggleState();
+      return;
+    }
+    
+    emptyState.style.display = 'none';
+    list.style.display = 'flex'; // Changed to flex to respect the column gap
+    
+    // Map over itemsToRender instead of the full items array!
+    list.innerHTML = itemsToRender.map(function(item) {
+      return `
+        <div class="item" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid #F0F5F9; border-radius: 8px; background: #FFFFFF;">
+          
+          <div class="item-info" style="display: flex; flex-direction: row; align-items: center; gap: 12px; flex: 1; overflow: hidden;">
+            <input type="checkbox" class="item-checkbox custom-checkbox" data-id="${item.id}">
+            <span class="item-name" title="${item.name}" style="font-family: 'Inter'; font-size: 13px; color: #6B7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block;">${item.name}</span>
+          </div>
+
+          <div class="item-actions" style="display: flex; gap: 12px; align-items: center; flex-shrink: 0;">
+            <button class="target-btn" data-id="${item.id}" title="Locate element" style="background:none; border:none; padding:0; cursor:pointer; color: #111111;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.33337 8H3.33337" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.6666 8H14.6666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 1.33325V3.33325" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 12.6667V14.6667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.00004 12.6666C10.5774 12.6666 12.6667 10.5772 12.6667 7.99992C12.6667 5.42259 10.5774 3.33325 8.00004 3.33325C5.42271 3.33325 3.33337 5.42259 3.33337 7.99992C3.33337 10.5772 5.42271 12.6666 8.00004 12.6666Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="delete-btn" data-id="${item.id}" title="Delete item" style="background:none; border:none; padding:0; cursor:pointer;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4H14" stroke="#DB2777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.6668 4V13.3333C12.6668 14 12.0002 14.6667 11.3335 14.6667H4.66683C4.00016 14.6667 3.3335 14 3.3335 13.3333V4" stroke="#DB2777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.3335 3.99992V2.66659C5.3335 1.99992 6.00016 1.33325 6.66683 1.33325H9.3335C10.0002 1.33325 10.6668 1.99992 10.6668 2.66659V3.99992" stroke="#DB2777" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.item-checkbox').forEach(function(checkbox) {
+      checkbox.onchange = function(e) {
+        var itemRow = e.target.closest('.item');
+        if (e.target.checked) {
+          itemRow.style.backgroundColor = '#F9FAFB';
+          itemRow.style.borderRadius = '8px';
+        } else {
+          itemRow.style.backgroundColor = 'transparent';
+        }
+        updateBulkActions();
+      };
+    });
+
+    updateToggleState(); // <--- SPOT 2: Update badge to the actual length
+  }
+
+  // --- DELEGATED EVENT LISTENERS (Handles dynamic elements properly) ---
+ document.getElementById('list').addEventListener('click', function(event) {
+    
+    // 1. Did they click a Target button?
+    var targetBtn = event.target.closest('.target-btn');
+    if (targetBtn) {
+      var targetId = targetBtn.dataset.id;
+      parent.postMessage({ pluginMessage: { type: 'target-item', id: targetId } }, '*');
+      return; // Stop running
+    }
+
+    // 2. Did they click a Delete button?
+    var deleteBtn = event.target.closest('.delete-btn');
+    if (deleteBtn) {
+      var deleteId = deleteBtn.dataset.id;
+
+      console.log("UI: Target button clicked! Item ID is:", targetId);
+
+      parent.postMessage({ pluginMessage: { type: 'delete-item', id: deleteId } }, '*');
+    }
+  });
+
+// --- DYNAMIC HEADER BUTTONS LOGIC ---
+  function updateBulkActions() {
+    var checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
+    var bulkDeleteBtn = document.getElementById('bulk-delete-btn');
+    var selectAllCb = document.getElementById('select-all');
+    
+    if (checkedBoxes.length > 0) {
+      if(bulkDeleteBtn) bulkDeleteBtn.style.display = 'flex';
+      
+      // DISABLE COPY BUTTON WHEN ITEMS ARE SELECTED
+      if (copyBtn) {
+        copyBtn.style.pointerEvents = 'none'; // Makes it unclickable
+        copyBtn.style.opacity = '0.3'; // Fades it out
+        copyBtn.classList.remove('ready');
+      }
+    } else {
+      if(bulkDeleteBtn) bulkDeleteBtn.style.display = 'none';
+      
+      // RE-ENABLE COPY BUTTON (If something on canvas is selected)
+      if (copyBtn) {
+        copyBtn.style.pointerEvents = 'auto'; 
+        if (hasSelection) {
+          copyBtn.classList.add('ready');
+          copyBtn.style.opacity = '1';
+        } else {
+          copyBtn.style.opacity = '0.5';
+        }
+      }
+    }
+
+    if (selectAllCb) {
+      var allBoxes = document.querySelectorAll('.item-checkbox');
+      selectAllCb.checked = (allBoxes.length > 0 && checkedBoxes.length === allBoxes.length);
+    }
+  }
+
+  // --- COPY BUTTON LOGIC (WITH GLOW) ---
+  if (copyBtn) {
+    copyBtn.onclick = function() {
+      if (!hasSelection) {
+        showError('Select something in Figma first');
+        return; 
+      }
+      
+      // Add the light blue glow
+      copyBtn.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.4)';
+      copyBtn.style.transition = 'box-shadow 0.1s ease-in-out';
+      
+      // Remove the glow after 300ms
+      setTimeout(function() {
+        copyBtn.style.boxShadow = 'none';
+      }, 300);
+
+      parent.postMessage({ pluginMessage: { type: 'save-selection' } }, '*');
+    };
+  }
+
+  // --- BULK DELETE CLICK LOGIC ---
+  var bulkDeleteBtn = document.getElementById('bulk-delete-btn');
+  if (bulkDeleteBtn) {
+    bulkDeleteBtn.onclick = function() {
+      var selectedIds = getSelectedIds();
+      if (selectedIds.length === 0) return;
+      parent.postMessage({ pluginMessage: { type: 'delete-items', ids: selectedIds } }, '*');
+    };
+  }
+
+  var searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      renderList(); // Re-render the list every time the user types a letter
+    });
+  }
 </script>
 </body>
 </html>

@@ -1,0 +1,471 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+body {
+font-family: 'Inter', sans-serif;
+font-size: 12px;
+background: #FBFCFD;
+color: #111;
+width: 420px;
+height: 100%;
+overflow-x: hidden;
+}
+
+/* ── ONBOARDING screens 1 & 2 ── */
+#onboarding { width: 420px; }
+
+.ob-hero {
+position: relative;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* The new gradient ring */
+  .ob-bg-glow {
+    position: absolute;
+    z-index: 0;
+  }
+
+.ob-bg-circle {
+position: absolute;
+/* Added a soft shadow to make the white circle pop against the light gray background */
+box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.04);
+border-radius: 50%;
+z-index: 1;
+}
+.ob-logo {
+position: relative;
+z-index: 2;
+}
+.ob-float {
+position: absolute;
+z-index: 3;
+}
+.ob-purple { top: 40px; left: 100px; }
+.ob-red { top: 60px; right: 90px; }
+.ob-yellow { bottom: 60px; left: 80px; }
+.ob-blue { bottom: 45px; right: 105px; }
+
+.ob-illustration {
+width: 420px;
+height: 260px; /* Increased slightly to give the illustration room */
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+background: #F7F7F7; /* Matched the light gray background */
+transition: background 0.3s;
+}
+
+.ob-illustration img {
+width: auto;
+height: auto;
+max-width: 100%;
+max-height: 100%;
+object-fit: contain;
+object-position: center;
+display: block;
+}
+
+.ob-card {
+background: #fff;
+border-radius: 24px 24px 0 0; /* Slightly rounder corners */
+padding: 32px 28px 24px;
+margin-top: -30px; /* Pulls the card up over the gray background */
+position: relative;
+min-height: 260px;
+display: flex;
+flex-direction: column;
+align-items: center;
+/* Soft upward shadow to match the design */
+box-shadow: 0px -8px 24px rgba(0, 0, 0, 0.06); 
+}
+
+/* Hidden since dots aren't in the final design */
+.ob-dots { display: none; } 
+
+.ob-purple-shadow { top: 48px; left: 95px; z-index: 2;}
+  .ob-purple { top: 40px; left: 100px; }
+  
+  .ob-red-shadow { top: 68px; right: 85px; z-index: 2;}
+  .ob-red { top: 60px; right: 90px; }
+  
+  .ob-yellow-shadow { bottom: 52px; left: 85px; z-index: 2;}
+  .ob-yellow { bottom: 60px; left: 80px; }
+  
+  .ob-blue-shadow { bottom: 37px; right: 100px; z-index: 2;}
+  .ob-blue { bottom: 45px; right: 105px; }
+
+.ob-title {
+font-size: 20px;
+font-weight: 600; /* Bolder weight to match design */
+text-align: center;
+margin-top: 24px;
+margin-bottom: 12px;
+line-height: 1.3;
+color: #000;
+width: 100%;
+}
+
+.ob-desc {
+font-size: 13px;
+font-weight: 400;
+color: #555;
+text-align: center;
+line-height: 1.5;
+margin-bottom: 24px;
+width: 90%; /* Keeps text constrained nicely */
+}
+
+.ob-actions {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 16px;
+width: 100%;
+margin-top: auto;
+}
+
+.ob-btn-primary {
+padding: 12px;
+background: #2A85FF; /* Matched the softer blue */
+color: #fff;
+border: none;
+border-radius: 100px;
+cursor: pointer;
+font-size: 14px;
+font-weight: 500;
+font-family: 'Inter', sans-serif;
+transition: background 0.15s;
+flex-shrink: 0;
+}
+
+.ob-btn-primary:hover { background: #1a71e0; }
+.ob-btn-primary.btn-next-first { width: 220px; } /* Matches the Next button width */
+.ob-btn-primary.btn-get-started { width: 180px; }
+
+.ob-btn-back {
+background: none;
+border: none;
+cursor: pointer;
+color: #333;
+font-size: 18px;
+padding: 8px;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: color 0.15s;
+flex-shrink: 0;
+}
+
+.ob-btn-back:hover { color: #000; }
+
+/* ── HOW TO USE ── */
+#howto {
+display: none;
+width: 420px;
+background: #FBFCFD;
+padding: 24px 20px 20px;
+display: none;
+flex-direction: column;
+align-items: center;
+}
+.ht-title {
+font-size: 22px;
+font-weight: 500;
+text-align: center;
+margin-bottom: 6px;
+color: #111;
+}
+.ht-subtitle {
+font-size: 12px;
+font-weight: 300;
+color: #9CA3AF;
+text-align: center;
+margin-bottom: 16px;
+white-space: nowrap;
+}
+.ht-subtitle span { color: #F59E0B; font-weight: 300; }
+.ht-card {
+background: #fff;
+border-radius: 14px;
+padding: 24px 20px 22px;
+width: 100%;
+border: 1px solid #F0F5F9;
+}
+.ht-card-footer {
+display: flex;
+justify-content: center;
+margin-top: 20px;
+}
+.ht-step {
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 7px 0;
+margin-bottom: 20px;
+}
+.ht-step:last-child {
+margin-bottom: 0;
+}
+.ht-icon {
+width: 20px;
+height: 20px;
+border-radius: 4px;
+flex-shrink: 0;
+}
+.ht-label {
+font-size: 13px;
+font-weight: 400;
+color: #111;
+}
+.ht-btn {
+padding: 11px 22px;
+white-space: nowrap;
+background: #369EFF;
+color: #fff;
+border: none;
+border-radius: 100px;
+cursor: pointer;
+font-size: 13px;
+font-weight: 400;
+font-family: 'Inter', sans-serif;
+transition: background 0.15s;
+}
+.ht-btn:hover { background: #1a8cff; }
+
+/* ── MAIN UI ── */
+#main {
+display: none;
+width: 420px;
+height: 100%;
+flex-direction: column;
+justify-content: flex-start;
+}
+
+#container {
+display: flex;
+flex-direction: column;
+flex-shrink: 0;
+}
+
+.header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px 14px;
+background: #1e1e1e;
+}
+.header-logo {
+width: 22px;
+height: 17px;
+display: block;
+flex-shrink: 0;
+}
+.toggle-btn {
+display: flex;
+align-items: center;
+gap: 6px;
+background: none; border: none;
+color: #aaa; cursor: pointer;
+font-size: 13px; padding: 0 4px;
+font-family: 'Inter', sans-serif;
+}
+.toggle-btn:hover { color: #fff; }
+
+.save-btn {
+width: 100%;
+padding: 10px;
+background: #1a8cff;
+color: #fff;
+border: none;
+border-radius: 100px;
+cursor: pointer;
+font-size: 13px;
+font-weight: 500;
+font-family: 'Inter', sans-serif;
+margin-bottom: 12px;
+transition: background 0.15s;
+}
+.save-btn:hover { background: #0d7ae0; }
+.save-btn:disabled {
+background: #D5DCE3;
+color: #7B8794;
+cursor: default;
+}
+.save-btn:disabled:hover { background: #D5DCE3; }
+
+.empty { text-align: center; color: #999; padding: 28px 0; font-size: 12px; }
+
+.item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 9px 12px;
+background: #fff;
+border-radius: 10px;
+margin-bottom: 8px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.item-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+.item-name {
+font-weight: 500;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 260px;
+font-size: 13px;
+color: #111;
+}
+.item-type { color: #aaa; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+.item-actions { display: flex; gap: 8px; }
+
+.paste-btn, .delete-btn {
+border: none; border-radius: 6px;
+padding: 6px 12px; cursor: pointer;
+font-size: 12px; font-weight: 500;
+font-family: 'Inter', sans-serif;
+transition: background 0.15s;
+}
+.paste-btn { background: #1a8cff; color: #fff; }
+.paste-btn:hover { background: #0d7ae0; }
+.delete-btn { background: #f0f0f0; color: #888; }
+.delete-btn:hover { background: #fde8e8; color: #e03; }
+
+.error { color: #e03333; font-size: 12px; margin-bottom: 10px; text-align: center; }
+.collapsed .body { display: none; }
+.body { padding: 14px; background: #FBFCFD; }
+
+.search-container {
+position: relative;
+margin-bottom: 16px;
+}
+.search-input {
+width: 100%;
+padding: 10px 10px 10px 36px;
+border: 1px solid #F0F5F9;
+border-radius: 20px;
+font-family: 'Inter', sans-serif;
+font-size: 13px;
+color: #111;
+background: #fff;
+outline: none;
+}
+.search-input::placeholder { color: #9CA3AF; }
+.search-icon {
+position: absolute;
+left: 12px;
+top: 50%;
+transform: translateY(-50%);
+width: 14px;
+height: 14px;
+color: #9CA3AF;
+}
+
+/* ── EMPTY STATE ── */
+/* ── EMPTY STATE ── */
+.empty-state {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 380px; /* Adjusted height to center perfectly in the layout */
+background: #fff;
+border: 1px solid #F0F5F9;
+border-radius: 10px;
+text-align: center;
+}
+
+.empty-icon {
+width: 57px;
+height: 55px;
+margin-bottom: 24px;
+}
+
+.empty-title {
+font-family: 'Inter', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+color: #6B7280;
+margin-bottom: 8px;
+}
+
+.empty-subtitle {
+font-family: 'Inter', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+color: #9CA3AF;
+margin-bottom: 24px;
+}
+
+.empty-copy-btn {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 16px;
+width: 146px;
+height: 41px;
+background: #369EFF; /* Active Blue */
+color: #FFFFFF;
+border: none;
+border-radius: 20px;
+font-family: 'Inter', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+/* Disabled state matches your gray button design */
+.empty-copy-btn:disabled {
+background: #E5E7EB;
+color: #FFFFFF;
+cursor: not-allowed;
+}
+
+.empty-copy-btn:not(:disabled):hover {
+background: #1a8cff;
+}
+
+/* ── FOOTER ── */
+.footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+padding: 12px 20px;
+background: #FBFCFD;
+border-top: 1px solid #E5E7EB;
+display: flex;
+justify-content: flex-end;
+}
+.collapse-btn {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 6px 12px;
+background: #fff;
+border: 1px solid #F0F5F9;
+border-radius: 40px;
+color: #9CA3AF;
+font-size: 14px;
+font-family: 'Inter', sans-serif;
+cursor: pointer;
+transition: all 0.2s;
+}
+.collapse-btn:hover {
+border-color: #d1d5db;
+color: #6b7280;
+}
+.collapse-btn svg { width: 14px; height: 14px; }
