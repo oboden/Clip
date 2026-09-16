@@ -832,6 +832,12 @@
     copyBtn.style.cursor = 'not-allowed';
   }
 
+  if (pasteBtn) {
+  pasteBtn.style.opacity = '0.5';
+  pasteBtn.style.cursor = 'not-allowed';
+  pasteBtn.style.pointerEvents = 'none';
+}
+
   // --- UNIFIED MESSAGE LISTENER ---
   window.onmessage = function(event) {
     var msg = event.data.pluginMessage;
@@ -1189,26 +1195,18 @@
   }
 
   // --- DELEGATED EVENT LISTENERS (Handles dynamic elements properly) ---
- document.getElementById('list').addEventListener('click', function(event) {
-    
-    // 1. Did they click a Target button?
-    var targetBtn = event.target.closest('.target-btn');
-    if (targetBtn) {
-      var targetId = targetBtn.dataset.id;
-      parent.postMessage({ pluginMessage: { type: 'target-item', id: targetId } }, '*');
-      return; // Stop running
-    }
+document.getElementById('list').addEventListener('click', function(event) {
+  var targetBtn = event.target.closest('.target-btn');
+  if (targetBtn) {
+    parent.postMessage({ pluginMessage: { type: 'target-item', id: targetBtn.dataset.id } }, '*');
+    return;
+  }
 
-    // 2. Did they click a Delete button?
-    var deleteBtn = event.target.closest('.delete-btn');
-    if (deleteBtn) {
-      var deleteId = deleteBtn.dataset.id;
-
-      console.log("UI: Target button clicked! Item ID is:", targetId);
-
-      parent.postMessage({ pluginMessage: { type: 'delete-item', id: deleteId } }, '*');
-    }
-  });
+  var deleteBtn = event.target.closest('.delete-btn');
+  if (deleteBtn) {
+    parent.postMessage({ pluginMessage: { type: 'delete-item', id: deleteBtn.dataset.id } }, '*');
+  }
+});
 
 // --- DYNAMIC HEADER BUTTONS LOGIC ---
 function updateBulkActions() {
