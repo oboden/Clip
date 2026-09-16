@@ -787,12 +787,14 @@
             <span style="font-family: 'Inter'; font-size: 14px; color: #374151;">Select all</span>
           </label>
 
-          <div class="header-actions" style="display: flex; gap: 10px;">
-            <button id="copy-btn" class="action-btn copy-btn" title="Copy">Copy</button>
-            <button id="paste-btn" class="action-btn paste-btn" title="Paste">Paste</button>    
-        </div>
+      <div class="header-actions" style="display: flex; gap: 10px;">
+         <button id="copy-btn" class="action-btn copy-btn" title="Copy">Copy</button>
+         <button id="paste-btn" class="action-btn paste-btn" title="Paste">Paste</button>    
+      </div>
 
-        <div id="error" class="error" style="display:none"></div>
+       </div> <!-- ← ADD THIS: closes .header-controls -->
+
+<div id="error" class="error" style="display:none"></div>
         
         <div id="empty-state" class="empty-state">
           <svg class="empty-icon" width="57" height="55" viewBox="0 0 57 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -832,11 +834,7 @@
     copyBtn.style.cursor = 'not-allowed';
   }
 
-  if (pasteBtn) {
-  pasteBtn.style.opacity = '0.5';
-  pasteBtn.style.cursor = 'not-allowed';
-  pasteBtn.style.pointerEvents = 'none';
-}
+
 
   // --- UNIFIED MESSAGE LISTENER ---
   window.onmessage = function(event) {
@@ -1087,12 +1085,19 @@
   // --- BULK ACTION LOGIC ---
   var pasteBtn = document.getElementById('paste-btn');
   if (pasteBtn) {
+   //initial disabled state
+   pasteBtn.style.opacity = '0.5';
+   pasteBtn.style.cursor = 'not-allowed';
+   pasteBtn.style.pointerEvents = 'none';
+
+    //Click handler
     pasteBtn.onclick = function() {
       var selectedIds = getSelectedIds();
       if (selectedIds.length === 0) return; 
       parent.postMessage({ pluginMessage: { type: 'paste-items', ids: selectedIds } }, '*');
     };
   }
+
 
   var selectAllCheckbox = document.getElementById('select-all');
   if (selectAllCheckbox) {
@@ -1275,14 +1280,7 @@ function updateBulkActions() {
   }
 
   // --- BULK DELETE CLICK LOGIC ---
-  var bulkDeleteBtn = document.getElementById('bulk-delete-btn');
-  if (bulkDeleteBtn) {
-    bulkDeleteBtn.onclick = function() {
-      var selectedIds = getSelectedIds();
-      if (selectedIds.length === 0) return;
-      parent.postMessage({ pluginMessage: { type: 'delete-items', ids: selectedIds } }, '*');
-    };
-  }
+
 
   var searchInput = document.getElementById('search-input');
   if (searchInput) {
