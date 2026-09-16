@@ -1211,40 +1211,48 @@
   });
 
 // --- DYNAMIC HEADER BUTTONS LOGIC ---
-  function updateBulkActions() {
-    var checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
-    var bulkDeleteBtn = document.getElementById('bulk-delete-btn');
-    var selectAllCb = document.getElementById('select-all');
-    
-    if (checkedBoxes.length > 0) {
-      if(bulkDeleteBtn) bulkDeleteBtn.style.display = 'flex';
-      
-      // DISABLE COPY BUTTON WHEN ITEMS ARE SELECTED
-      if (copyBtn) {
-        copyBtn.style.pointerEvents = 'none'; // Makes it unclickable
-        copyBtn.style.opacity = '0.3'; // Fades it out
-        copyBtn.classList.remove('ready');
-      }
-    } else {
-      if(bulkDeleteBtn) bulkDeleteBtn.style.display = 'none';
-      
-      // RE-ENABLE COPY BUTTON (If something on canvas is selected)
-      if (copyBtn) {
-        copyBtn.style.pointerEvents = 'auto'; 
-        if (hasSelection) {
-          copyBtn.classList.add('ready');
-          copyBtn.style.opacity = '1';
-        } else {
-          copyBtn.style.opacity = '0.5';
-        }
-      }
-    }
+function updateBulkActions() {
+  var checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
+  var selectAllCb = document.getElementById('select-all');
 
-    if (selectAllCb) {
-      var allBoxes = document.querySelectorAll('.item-checkbox');
-      selectAllCb.checked = (allBoxes.length > 0 && checkedBoxes.length === allBoxes.length);
+  // Paste button: active only when at least one item is checked
+  if (pasteBtn) {
+    if (checkedBoxes.length > 0) {
+      pasteBtn.classList.add('ready');
+      pasteBtn.style.opacity = '1';
+      pasteBtn.style.cursor = 'pointer';
+      pasteBtn.style.pointerEvents = 'auto';
+    } else {
+      pasteBtn.classList.remove('ready');
+      pasteBtn.style.opacity = '0.5';
+      pasteBtn.style.cursor = 'not-allowed';
+      pasteBtn.style.pointerEvents = 'none';
     }
   }
+
+  // Copy button: disabled when checkboxes are checked, otherwise follows hasSelection
+  if (copyBtn) {
+    if (checkedBoxes.length > 0) {
+      copyBtn.style.pointerEvents = 'none';
+      copyBtn.style.opacity = '0.3';
+      copyBtn.classList.remove('ready');
+    } else {
+      copyBtn.style.pointerEvents = 'auto';
+      if (hasSelection) {
+        copyBtn.classList.add('ready');
+        copyBtn.style.opacity = '1';
+      } else {
+        copyBtn.style.opacity = '0.5';
+      }
+    }
+  }
+
+  // Select-all checkbox state
+  if (selectAllCb) {
+    var allBoxes = document.querySelectorAll('.item-checkbox');
+    selectAllCb.checked = (allBoxes.length > 0 && checkedBoxes.length === allBoxes.length);
+  }
+}
 
   // --- COPY BUTTON LOGIC (WITH GLOW) ---
   if (copyBtn) {
